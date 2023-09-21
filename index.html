@@ -3,14 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sorpresa Manu</title>
     <link rel="stylesheet" href="style.css">
 
+    <style>
+
+        #countdown {
+            text-align: center;
+            font-size: 2em; /* Adjust the font size as needed */
+            padding: 20px; /* Add padding for better visibility */
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Function to hide the body if the current date is before September 22, 2023
+            function hideBodyBeforeDate() {
+                var currentDate = new Date();
+                var targetDate = new Date(2023, 8, 22);
+                if (currentDate < targetDate) {
+                    let contentToHide = document.getElementById("contentToHide") 
+                    contentToHide.style.display = "none";
+                    updateCountdownTimer(new Date(2023, 8, 22));
+                }
+            }
+
+            // Function to display a countdown timer
+            function updateCountdownTimer(targetDate) {
+                var countdown = document.getElementById("countdown");
+                var timerInterval = setInterval(function() {
+                    var now = new Date();
+                    var timeLeft = targetDate - now;
+
+                    if (timeLeft <= 0) {
+                        countdown.innerHTML = "Countdown expired!";
+                        clearInterval(timerInterval); // Stop the timer when it's expired
+                    } else {
+                        var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                        var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                        countdown.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+                    }
+                }, 1000); // Update every 1 second
+            }
+
+            // Call the functions
+            hideBodyBeforeDate();
+            
+        });
+    </script>
 </head>
 <body>
-    
-    
-        
+    <p id="countdown"></p>
+     <div id="contentToHide">
+
         <h1 class="main" >Manu dell'avvento 2023</h1>
         <details >
             <summary class="main">Generative AI Intro</summary>
@@ -42,8 +90,11 @@
         <div id="adventBoxes"></div>
     </div>
     <br>
-   
+    <div id="countdown" style="text-align: center;"></div>
     <script src="./index.js"></script>
+
+    </div>
+
 </body>
 </html>
 
